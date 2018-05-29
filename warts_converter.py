@@ -1,10 +1,11 @@
 import warts
 from warts.traceroute import Traceroute
 from os import listdir, makedirs, path
+from sys import argv
 
-
+# method for warts file conversion to format used by R processing script
 def make_pings_file(warts_dir, filename):
-    directory = 'rtt_files'
+    directory = 'rtt_files_first_hop'
     rtt_filename = filename.replace('.warts', '.txt')
     print("{} is broken".format(filename))
     if not path.exists(directory):
@@ -20,26 +21,20 @@ def make_pings_file(warts_dir, filename):
                 if record is None:
                     break
                 if isinstance(record, Traceroute) and record.hops:
-                    print('the hop address is {} and rtt is {}'.format(record.hops[-1].address, record.hops[-1].rtt))
-                    print(type(record.hops[-1].rtt))
-                    outfile.write(str(record.hops[-1].rtt) + '\n')
+                    print('the hop address is {} and rtt is {}'.format(record.hops[1].address, record.hops[1].rtt))
+                    print(type(record.hops[1].rtt))
+                    outfile.write(str(record.hops[1].rtt) + '\n')
             except Exception:
                 continue
     return 0
 
 
 def main():
-    warts_dir = 'warts_files'
-    warts_files = ['peeramidion.irisa.fr.warts',
-                   'pluto.cs.brown.edu.warts',
-                   'planetlab2.ics.forth.gr.warts',
-                   'planetlab1.cesnet.cz.warts',
-                   'planetlab2.utt.fr.warts',
-                   'pl1.6test.edu.cn.warts',
-                   'planetlab-n1.wand.net.nz.warts',
-                   'planetlab1.virtues.fi.warts',
-                   'pl2.sos.info.hiroshima-cu.ac.jp.warts']
-    for warts_file in listdir(warts_dir):
+
+    warts_dir = argv[1]
+    # warts_files = ["ebb.colgate.edu.warts"]
+    warts_files = listdir(warts_dir)
+    for warts_file in warts_files:
         make_pings_file(warts_dir, warts_file)
     return 0
 
