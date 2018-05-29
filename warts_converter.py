@@ -3,6 +3,7 @@ from warts.traceroute import Traceroute
 from os import listdir, makedirs, path
 from sys import argv
 
+
 # method for warts file conversion to format used by R processing script
 def make_pings_file(warts_dir, filename):
     directory = 'rtt_files_first_hop'
@@ -39,8 +40,8 @@ def make_pings_file(warts_dir, filename):
 def main():
 
     warts_dir = argv[1]
-    warts_files = ["ebb.colgate.edu.warts"]
-    # warts_files = listdir(warts_dir)
+    # warts_files = ["ebb.colgate.edu.warts"]
+    warts_files = listdir(warts_dir)
     for warts_file in warts_files:
         make_pings_file(warts_dir, warts_file)
     return 0
