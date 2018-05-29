@@ -6,7 +6,7 @@ from sys import argv
 
 # method for warts file conversion to format used by R processing script
 def make_pings_file(warts_dir, filename):
-    directory = 'rtt_files_first_hop'
+    directory = 'rtt_files_last_hop'
     rtt_filename = filename.replace('.warts', '.txt')
     if not path.exists(directory):
         makedirs(directory)
@@ -24,14 +24,14 @@ def make_pings_file(warts_dir, filename):
                     try:
                         used_hop
                     except:
-                        used_hop = record.hops[1].address
-                        outfile.write(str(record.hops[1].rtt) + '\n')
+                        used_hop = record.hops[-1].address
+                        outfile.write(str(record.hops[-1].rtt) + '\n')
                     else:
-                        if record.hops[1].address == used_hop:
-                            print('the hop address is {} and rtt is {}'.format(record.hops[1].address, record.hops[1].rtt))
-                            outfile.write(str(record.hops[1].rtt) + '\n')
+                        if record.hops[-1].address == used_hop:
+                            print('the hop address is {} and rtt is {}'.format(record.hops[-1].address, record.hops[-1].rtt))
+                            outfile.write(str(record.hops[-1].rtt) + '\n')
                         else:
-                            print("Route has been changed from {norm} to {changed}".format(norm=used_hop, changed=record.hops[1].address))
+                            print("Route has been changed from {norm} to {changed}".format(norm=used_hop, changed=record.hops[-1].address))
             except Exception:
                 continue
     return 0

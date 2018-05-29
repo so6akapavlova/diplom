@@ -1,5 +1,4 @@
 arguments = commandArgs(trailingOnly=TRUE)
-print(length(arguments))
 filename = arguments[1]
 stopifnot(exists("filename"))
 stopifnot(file.exists(filename))
@@ -22,7 +21,7 @@ jitter_mean = vector()
 for (i in 2:length(sample)) {
 	meanForSample = mean(sample[1:i-1])
 	jitter_mean[i-1] = abs(sample[i] - meanForSample)
-    print(jitter_mean[i-1])
+    # print(jitter_mean[i-1])
 }
 
 jitter_first = vector()
@@ -35,12 +34,12 @@ ipdv = vector()
 
 for (i in 2:length(sample)) {
 	ipdv[i-1] = abs(sample[i] - sample[i-1])
-    print(ipdv[i-1])
+    # print(ipdv[i-1])
 }
 image_name = paste(basename(filename), ".png", sep="", collapse = NULL)
 png(image_name)
-# plot(x=0, y=0, xlim=c(0, length(sample)), ylim=c(1, endY), type="n", xlab="package number", ylab="jitter")
-plot(x=0, y=0, xlim=c(0, length(sample)), ylim=c(1, endY), type="n", xlab="package number", ylab="jitter", log='y')
+plot(x=0, y=0, xlim=c(0, length(sample)), ylim=c(-10 , endY), type="n", xlab="package number", ylab="jitter")
+# plot(x=0, y=0, xlim=c(0, length(sample)), ylim=c(1, endY), type="n", xlab="package number", ylab="jitter", log='y')
 
 # plot(sample_sizes, seq(10, 150, 10), type="l", xlab="sample size", ylab="jitter, ms")
 
@@ -56,6 +55,7 @@ dev.off()
 
 print(quantile(jitter_mean, probs=0.99))
 print(quantile(jitter_min, probs=0.99))
+print(quantile(jitter_first, probs=0.99))
 print(quantile(ipdv, probs=0.99))
 # summa = sum(jitter_mean))
 # print(summa)
