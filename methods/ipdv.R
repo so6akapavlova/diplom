@@ -1,7 +1,5 @@
-# Title     : TODO
-# Objective : TODO
-# Created by: sobakapavlova
-# Created on: 27/05/2018
+# function to calculate jitter via 4th method
+
 ipdv <- function(delays){
     jitter = vector()
     jitter[1] = 4
