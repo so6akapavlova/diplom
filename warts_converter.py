@@ -15,6 +15,7 @@ def make_pings_file(warts_dir, filename):
         return 1
     with open(path.join(warts_dir, filename), 'r') as fd,\
             open(path.join(directory, rtt_filename), 'w') as outfile:
+        counter = 0
         while True:
             try:
                 record = warts.parse_record(fd)
