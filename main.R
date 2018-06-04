@@ -18,7 +18,7 @@ endY = max(delays) + 0.05 * (max(delays) - min(delays)) / 0.9
 dir.create(image_dir, showWarnings = FALSE)
 image_name = file.path(image_dir, paste(basename(filename), ".png", sep=""))
 png(image_name)
-plot(x=0, y=1, xlim=c(0, length(delays)), ylim=c(1 , endY), type="n", xlab="package number", ylab="jitter", log="y")
+plot(x=0, y=1, xlim=c(0, length(delays)), ylim=c(1 , endY), type="n", xlab="packet number", ylab="jitter", log="y")
 
 for (method_number in arguments[2:length(arguments)]){
     if (strtoi(method_number) %in% seq(1:4)){
